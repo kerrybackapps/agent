@@ -46,6 +46,31 @@ Four scaffolded exercises are pre-loaded:
 
 The server exercises are optional throughout the course. They are demonstrated by the instructor in Session 3 and available for self-paced exploration. Students who complete them gain a deeper understanding of how agents work, but the course does not require terminal or coding experience.
 
+### Recorded Demos (optional, for deeper understanding)
+
+Seven pre-recorded demos show the full build journey from a blank file to a production-style system. Each is recorded on the Linux VM using the same environment students have access to. Students who want to replicate any demo can SSH in and follow along. Links are provided in the homework for the paired session.
+
+**Demo 1: "Hello World Agent" (~15 min)** — *pairs with Session 3*
+Start from an empty file. Tell Claude Code in English to build a Python script that takes a question, sends it to Claude with a schema description, gets back SQL, runs it against a parquet file, and prints the answer. Show the ~50 lines it produces. Run it. Ask a question. Get an answer. The student sees the entire agent loop created from a plain English description. (This is a clean recording of the live Session 3 demo.)
+
+**Demo 2: "Adding a Second System" (~15 min)** — *pairs with Sessions 2-3*
+Start from the Demo 1 agent. Tell Claude Code to add a second database (Workday HR) so the agent can query both and merge. Show the agent deciding to query CRM + Workday for "revenue per employee by division." Show the fuzzy matching problem when customer names don't align. The cross-system merge from Session 2 becomes visible in code the student can read.
+
+**Demo 3: "Wrapping It in a Web App" (~15 min)** — *pairs with Session 4*
+Start from the Demo 2 agent. Tell Claude Code to wrap it in a simple web app with a chat interface. Claude Code generates a FastAPI backend + HTML frontend. Open a browser, type a question, get an answer with a chart. The student goes from a script to something that looks like the Meridian app in under an hour of total work.
+
+**Demo 4: "Building a Reporting Pipeline" (~20 min)** — *pairs with Session 4*
+Tell Claude Code to build a script that queries revenue by division, compares to prior quarter, generates a chart, writes a narrative summary, and saves it as a formatted report. Show the pipeline running end to end. Then show scheduling it to run weekly and adding a human review gate — the report is drafted but held for approval before distribution. The "ad hoc to automated" transition from Session 4 becomes concrete.
+
+**Demo 5: "Red-Teaming Your Agent" (~15 min)** — *pairs with Session 5*
+Start from the Demo 2 agent (no guardrails). Try SQL injection, ask for salary data, ask about nonexistent divisions. Show what fails — the agent returns individual salaries, doesn't validate SQL, hallucinates when data doesn't exist. Then add guardrails one by one: SQL validation, row limits, access control checks, "I don't know" responses. Guardrails aren't automatic — seeing the vulnerabilities firsthand makes the Session 5 governance discussion real.
+
+**Demo 6: "Building a RAG System" (~20 min)** — *pairs with Session 7*
+Start fresh with a folder of Meridian Corp documents (employee handbook, vendor contracts, compliance policies). Tell Claude Code to build a document Q&A system: chunk the PDFs, embed them, store in a vector database, and answer questions with cited passages. Show the full pipeline: PDF parsing → chunking → embedding (discuss model choice) → vector store (Chroma or pgvector). Ask questions and get answers with page citations. Then show a failure: a question where chunking split a relevant passage, demonstrating how chunk size affects retrieval quality.
+
+**Demo 7: "Combining Database + Document AI" (~15 min)** — *pairs with Session 7*
+Combine the Demo 2 database agent with the Demo 6 RAG system. Ask: "What's our contractual commitment to GE, and how does their actual spending compare?" RAG retrieves the contract terms; the database agent pulls spending data; the LLM synthesizes both. Show the orchestration: two retrieval paths (vector search vs. SQL), results merged by the LLM. This is the full vision — structured and unstructured company knowledge, accessible through one interface.
+
 ---
 
 ## Session-by-Session Outline
@@ -56,21 +81,22 @@ The server exercises are optional throughout the course. They are demonstrated b
 **Week 1 / Tuesday — From Questions to Answers in Seconds**
 
 **Learning objectives:**
+- Understand why AI agents matter now — the market signal and the opportunity
 - Experience conversational data access vs. traditional dashboards
 - Ask business questions in plain English and get instant answers with charts
-- Identify what AI data access changes about the speed of decision making
 
 **Session flow:**
 
 | Min | Segment | Format |
 |---|---|---|
-| 0-5 | **Cold open.** A CEO asks "which of our customers buy from multiple divisions?" The BI team says 3 weeks. Show the email chain. Ask: has this happened to you? | Provocation + discussion |
-| 5-15 | **Demo: Dashboard vs. Chat.** Open the Meridian Corp app and ask the same question. Get an instant answer. Ask follow-ups the dashboard can't handle. Students see SQL, charts, narrative — all from a chat interface. | Live demo |
-| 15-40 | **Hands-on: Your First Queries.** Students log into the app and work through 8-10 guided prompts against single systems — Salesforce pipeline queries, NetSuite financial summaries, Workday headcount breakdowns. Prompts progress from simple ("How many open deals are in Salesforce?") to analytical ("Which sales rep has the highest win rate this quarter?"). | Hands-on |
-| 40-55 | **Open Exploration.** Students ask their own questions. Challenge: find something surprising in the data. Instructor highlights interesting discoveries in real time. | Hands-on |
-| 55-70 | **Breakout Discussion (groups of 3).** What surprised you? What would this look like at your company? Who answers these questions today and how long does it take? Each group shares one insight. | Breakout rooms |
-| 70-85 | **The Business Lens.** If anyone in your company could ask a data question and get an instant answer, what changes? Who benefits? What decisions get made faster? What decisions get made that weren't being made at all? | Lecture + discussion |
-| 85-90 | Homework assignment | Wrap |
+| 0-15 | **Course Overview and the "Why Now."** Welcome. Quick recap of what the pre-program video covered — the Meridian simulation, the Linux VM, and what you'll be able to do by Session 8. Then the context: in February 2026, AI agents wiped $2 trillion from software company valuations. Investors decided that AI can replace large categories of enterprise software — BI dashboards, workflow tools, reporting layers, Tier 1 support. Whether or not you agree with the market's verdict, the technology behind it is real, and it's what we'll be working with for the next four weeks. This course teaches you to use it, understand how it works, evaluate its reliability, and build a strategy for deploying it. Questions about the course arc or logistics. | Lecture + Q&A |
+| 15-20 | **Cold open.** A CEO asks "which of our customers buy from multiple divisions?" The BI team says 3 weeks. Show the email chain. Ask: has this happened to you? | Provocation + discussion |
+| 20-28 | **Demo: Dashboard vs. Chat.** Open the Meridian Corp app and ask the same question. Get an instant answer. Ask follow-ups the dashboard can't handle. Students see SQL, charts, narrative — all from a chat interface. | Live demo |
+| 28-48 | **Hands-on: Your First Queries.** Students log into the app and work through 8-10 guided prompts against single systems — Salesforce pipeline queries, NetSuite financial summaries, Workday headcount breakdowns. Prompts progress from simple ("How many open deals are in Salesforce?") to analytical ("Which sales rep has the highest win rate this quarter?"). | Hands-on |
+| 48-60 | **Open Exploration.** Students ask their own questions. Challenge: find something surprising in the data. Instructor highlights interesting discoveries in real time. | Hands-on |
+| 60-75 | **Breakout Discussion (groups of 3-4).** What surprised you? What would this look like at your company? Who answers these questions today and how long does it take? Each group shares one insight. | Breakout rooms |
+| 75-88 | **The Business Lens.** Connect the hands-on experience back to the $2T question. The technology you just used — querying enterprise data in plain English, getting instant charts and narratives — is what the market believes will displace dashboards, reporting teams, and data integration tools. If anyone in your company could do what you just did, what changes? What decisions get made faster? What decisions get made that weren't being made at all? Over the next seven sessions we'll go deeper: cross-system data, how agents are built, reporting pipelines, reliability, and deployment. | Lecture + discussion |
+| 88-90 | Homework assignment | Wrap |
 
 **Homework:** Log into the Meridian app and ask 10 business questions of your choosing against any single system. Write down one question the agent answered well and one where it was unsatisfying or wrong. Bring both to Session 2.
 
@@ -121,7 +147,7 @@ The server exercises are optional throughout the course. They are demonstrated b
 | 72-85 | **Optional: Live Build with Claude Code.** Demonstrate building a simple agent from scratch in real time using Claude Code on the Linux server. The instructor drives; students watch. Show how AI writes the code from English instructions. This is the "your developer could do this" moment. | Live demo (instructor-driven) |
 | 85-90 | Homework | Wrap |
 
-**Homework:** (1) For those who want hands-on experience: SSH credentials are provided. Exercise 1 (hello-world agent) and Exercise 2 (multi-system agent) are on the server with starter templates. Claude Code will help you — you direct it in English. This is optional but recommended. (2) Required: Revisit your ROI template from Session 2 and add: what data quality issues would you expect to encounter? What pre-work is needed?
+**Homework:** (1) For those who want hands-on experience: SSH credentials are provided. Exercise 1 (hello-world agent) and Exercise 2 (multi-system agent) are on the server with starter templates. Claude Code will help you — you direct it in English. This is optional but recommended. *Optional viewing: Demos 1-2 walk through building these agents step by step.* (2) Required: Revisit your ROI template from Session 2 and add: what data quality issues would you expect to encounter? What pre-work is needed?
 
 **Note:** The Linux server exercises are available throughout the course for self-paced exploration. They are not required but provide deeper understanding for those who want it.
 
@@ -148,7 +174,7 @@ The server exercises are optional throughout the course. They are demonstrated b
 | 80-88 | **Breakout: What Would Your CISO Say? (groups of 3-4).** Given your industry and regulatory environment: which LLM deployment option fits? Which data security approach? What would your security and compliance teams flag first? Each group reports back: what constraints were common, and where did industry differences lead to different answers? Update your ROI template with architecture choice and cost estimates. | Breakout rooms |
 | 88-90 | Preview Week 3 (trust and verification) | Wrap |
 
-**Homework:** (1) Use the Meridian app to produce one complete deliverable of your choosing — a memo, a comparison, a risk assessment. Save or screenshot the output. (2) Update your ROI template with deployment architecture, data security approach, and cost estimates. (3) Identify one report at your company this technology could replace. What data sources does it need? What could go wrong?
+**Homework:** (1) Use the Meridian app to produce one complete deliverable of your choosing — a memo, a comparison, a risk assessment. Save or screenshot the output. (2) Update your ROI template with deployment architecture, data security approach, and cost estimates. (3) Identify one report at your company this technology could replace. What data sources does it need? What could go wrong? *Optional viewing: Demos 3-4 show building a web app and an automated reporting pipeline.*
 
 ---
 
@@ -172,7 +198,7 @@ The server exercises are optional throughout the course. They are demonstrated b
 | 72-85 | **Breakout: Your Governance Requirements (groups of 3-4).** Given your industry and regulatory environment, what guardrails would you require before deploying an AI agent? What's the minimum viable governance framework? Each group reports back: what governance requirements were universal vs. industry-specific? Where would adoption stall without executive air cover? | Breakout rooms |
 | 85-90 | Homework | Wrap |
 
-**Homework:** (1) Read the Klarna case study (provided as handout). They replaced Salesforce and Workday with AI, then partially reversed course. Come prepared to discuss: what did they get right? What went wrong? (2) For your identified use case: what governance requirements would your compliance team impose?
+**Homework:** (1) Read the Klarna case study (provided as handout). They replaced Salesforce and Workday with AI, then partially reversed course. Come prepared to discuss: what did they get right? What went wrong? (2) For your identified use case: what governance requirements would your compliance team impose? *Optional viewing: Demo 5 shows red-teaming an agent and adding guardrails.*
 
 ---
 
@@ -221,7 +247,7 @@ The server exercises are optional throughout the course. They are demonstrated b
 | 78-88 | **Breakout: Where Is Knowledge Trapped? (groups of 3-4).** What knowledge in your company is trapped in documents — policies, contracts, procedures, regulatory filings, past analyses? Each person names 2-3 document collections that would benefit from AI-powered Q&A. Compare across the group: what types of documents came up repeatedly? What access control challenges are common? Each group reports back: the most valuable document AI use case they identified and the biggest deployment obstacle. | Breakout rooms |
 | 88-90 | Capstone preview and homework | Wrap |
 
-**Homework:** Finalize your strategy document (1-2 pages using the template). Prepare a 5-minute presentation. Required sections: the problem, the solution (database AI, document AI, or both), deployment architecture (LLM, code execution, data security, and — if applicable — RAG infrastructure), the 90-day pilot plan, governance requirements, success metrics, the ask, and the Day 1 action.
+**Homework:** Finalize your strategy document (1-2 pages using the template). Prepare a 5-minute presentation. Required sections: the problem, the solution (database AI, document AI, or both), deployment architecture (LLM, code execution, data security, and — if applicable — RAG infrastructure), the 90-day pilot plan, governance requirements, success metrics, the ask, and the Day 1 action. *Optional viewing: Demos 6-7 show building a RAG system and combining it with a database agent.*
 
 ---
 
