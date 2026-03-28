@@ -205,14 +205,16 @@ Three independent reviews (executive education designer, Fortune 500 CTO, Big 4 
 
 **Session flow:**
 
+**Session flow (30 students):**
+
 | Min | Segment | Format |
 |---|---|---|
-| 0-3 | **Setup.** You are presenting to your executive team. The group is your board of advisors. | Framing |
-| 3-55 | **Capstone presentations.** 5 minutes each + 3 minutes peer Q&A. Instructor feedback on: is the pilot scoped tightly enough? Is the ROI credible? Is the governance plan adequate? Does the Day 1 action actually happen on Day 1? | Presentations |
-| 55-70 | **Synthesis: Three Lessons.** (1) AI agents replace the interface layer, not the data layer — dashboards and data warehouses are the first casualties, not ERP systems. (2) Building is easier than you thought, but governing is harder — the 50-line agent works, but production requires guardrails, access control, and verification. (3) The strategic question is not "will AI disrupt enterprise software?" but "will your company drive that disruption or react to it?" | Lecture |
-| 70-80 | **Monday Morning Actions.** Four things every executive can do regardless of role: (a) audit your software stack with the vulnerability framework, (b) scope a 30-day discovery sprint on one use case, (c) demand outcome-based pricing from your SaaS vendors at the next renewal, (d) establish an AI governance framework before shadow IT does it for you. | Lecture |
-| 80-88 | **Open discussion.** What surprised you most? What will you do differently? | Discussion |
-| 88-90 | Close. Resources for continued learning. Optional 30-day follow-up session to report on progress. | Wrap |
+| 0-3 | **Setup.** You are presenting to your executive team. Your breakout group is your board of advisors. | Framing |
+| 3-30 | **Breakout pitches.** 5 groups of 6. Each person presents their strategy (3 minutes) to their group. Group discusses and votes on the strongest strategy to represent them in the plenary. | Breakout rooms |
+| 30-70 | **Plenary presentations.** 5 winning strategies presented to the full class (5 min each + 3 min Q&A/feedback). Instructor feedback on: is the pilot scoped tightly enough? Is the ROI credible? Is the governance plan adequate? Does the Day 1 action actually happen on Day 1? | Presentations |
+| 70-80 | **Synthesis: Three Lessons.** (1) AI agents replace the interface layer, not the data layer — dashboards and data warehouses are the first casualties, not ERP systems. (2) Building is easier than you thought, but governing is harder — the 50-line agent works, but production requires guardrails, access control, and verification. (3) The strategic question is not "will AI disrupt enterprise software?" but "will your company drive that disruption or react to it?" | Lecture |
+| 80-85 | **Monday Morning Actions.** Four things every executive can do regardless of role: (a) audit your software stack with the vulnerability framework, (b) scope a 30-day discovery sprint on one use case, (c) demand outcome-based pricing from your SaaS vendors at the next renewal, (d) establish an AI governance framework before shadow IT does it for you. | Lecture |
+| 85-90 | Close. Resources for continued learning. Optional 30-day follow-up session to report on progress. | Wrap |
 
 ---
 
